@@ -64,6 +64,27 @@ namespace Serko.XmlExtactor.IntegrationTests {
         ///   Looks up a localized string similar to Hi Yvaine,
         ///Please create an expense claim for the below. Relevant details are marked up as
         ///requested...
+        ///&lt;expense&gt;cost_centre&gt;DEV002&lt;/cost_centre&gt;
+        ///&lt;total&gt;1024.01&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
+        ///&lt;/expense&gt;
+        ///From: Ivan Castle
+        ///Sent: Friday, 16 February 2018 10:32 AM
+        ///To: Antoine Lloyd &lt;Antoine.Lloyd@example.com&gt;
+        ///Subject: test
+        ///Hi Antoine,
+        ///Please create a reservation at the &lt;vendor&gt;Viaduct Steakhouse&lt;/vendor&gt; our
+        ///&lt;description&gt;development team’s project end celebration dinner&lt;/descr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TextWithInvalidXml {
+            get {
+                return ResourceManager.GetString("TextWithInvalidXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi Yvaine,
+        ///Please create an expense claim for the below. Relevant details are marked up as
+        ///requested...
         ///&lt;expense&gt;
         ///&lt;total&gt;1024.01&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
         ///&lt;/expense&gt;
