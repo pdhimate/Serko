@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Serko.XmlExtractor.Business.DTOs;
+using Serko.XmlExtractor.Business.Exceptions;
 using Serko.XmlExtractor.Business.Services;
 using System.IO;
 
@@ -80,7 +81,7 @@ namespace Serko.XmlExtractor.Business.Tests.Services
             var xmlService = new XmlService();
             var expenseService = GetMockedService(xmlService);
 
-            Assert.ThrowsException<InvalidDataException>(() => expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingTotal));
+            Assert.ThrowsException<TotalMissingException>(() => expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingTotal));
         }
 
         #endregion
