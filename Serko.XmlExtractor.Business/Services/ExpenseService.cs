@@ -21,7 +21,7 @@ namespace Serko.XmlExtractor.Business.Services
         #region Constants
 
         public const decimal GSTPercent = 15;
-        public const string UnknownVendorName = "UNKNOWN";
+        public const string UnknownCostCentre = "UNKNOWN";
 
         // XML Tags
         public const string VendorTag = "vendor";
@@ -82,7 +82,7 @@ namespace Serko.XmlExtractor.Business.Services
             }
             if (expense.CostCentre == null)
             {
-                expense.CostCentre = UnknownVendorName;
+                expense.CostCentre = UnknownCostCentre;
             }
 
             return expense;
