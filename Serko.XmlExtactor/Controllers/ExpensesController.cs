@@ -27,7 +27,7 @@ namespace Serko.XmlExtactor.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ExpenseReport), StatusCodes.Status200OK)]
-        public IActionResult Create(ExpenseReportReq req)
+        public IActionResult Create([FromBody] ExpenseReportReq req)
         {
             var report = _expenseService.GetExpenseReport(req);
             return Ok(report);

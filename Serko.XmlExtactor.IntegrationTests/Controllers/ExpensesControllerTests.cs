@@ -1,43 +1,31 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
+using RestSharp;
 using Serko.XmlExtractor.Business.DTOs;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Serko.XmlExtactor.IntegrationTests.Controllers
 {
     [TestClass]
     public class ExpensesControllerTests : TestsBase
     {
-        private string _apiurl = $"{ApiHostBaseUrl}api/expenses";
+        private const string _apiurl = "api/expenses";
 
         #region POST
 
         [TestMethod]
-        public async Task Post_TextWithValidXml_ReturnsReportAsync()
+        public void Post_TextWithValidXml_Returns_Report()
         {
-            // Create request
             var req = new ExpenseReportReq
             {
                 TextWithXml = Resources.TextWithValidXml
             };
-            var jsonReq = JsonConvert.SerializeObject(req);
-            var httpContent = new StringContent(jsonReq, Encoding.UTF8, "application/json");
-            HttpResponseMessage response;
+            var request = new RestRequest(_apiurl, Method.POST);
+            request.AddJsonBody(req);
+            var res = RestClient.Execute<ExpenseReport>(request);
 
-            // POST
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                response = await client.PostAsync(_apiurl, httpContent);
-            }
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(1024.01M, res.Data.Expense.Total);
+            Assert.AreEqual("personal card", res.Data.Expense.PaymentMethod);
+            Assert.AreEqual("DEV002", res.Data.Expense.CostCentre);
         }
 
         #endregion
