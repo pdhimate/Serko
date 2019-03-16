@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Serko.XmlExtractor.Business.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Serko.XmlExtactor
 {
@@ -29,6 +30,12 @@ namespace Serko.XmlExtactor
             // Register dependencies
             services.AddScoped<IXmlService, XmlService>();
             services.AddScoped<IExpenseService, ExpenseService>();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Expenses API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +45,17 @@ namespace Serko.XmlExtactor
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-UI (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Expenses API V1");
+                c.RoutePrefix = string.Empty; // Serve swagger at the root
+            });
 
             app.UseMvc();
         }
