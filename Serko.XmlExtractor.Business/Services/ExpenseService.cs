@@ -1,4 +1,5 @@
 ﻿using Serko.XmlExtractor.Business.DTOs;
+using Serko.XmlExtractor.Business.Exceptions;
 using Serko.XmlExtractor.Business.Models;
 using System;
 using System.Collections.Generic;
@@ -69,19 +70,21 @@ namespace Serko.XmlExtractor.Business.Services
             var expenseXml = _xmlService.ExtractXmlIsland(text, ExpenseTag);
             if (expenseXml == null)
             {
-                throw new InvalidDataException($"The provided text does not contain the XML tag for <{ExpenseTag}>.");
+                throw new InvalidExpenseException($"The provided text does not contain the XML tag for <{ExpenseTag}>.");
             }
             var expense = _xmlService.TryDeserialize<Expense>(expenseXml);
             if (expense == null)
             {
-                throw new InvalidDataException($"The provided text does not contain a valid XML Markup for <{ExpenseTag}>.");
+                throw new InvalidExpenseException($"The provided text does not contain a valid XML Markup for <{ExpenseTag}>.");
             }
 
-            // Sanitize/Validate
+            // Validate total tag
             if (!expense.Total.HasValue)
             {
-                throw new InvalidDataException($"The provided text does not contain the XML tag for <{TotalTag}> or its value is empty");
+                throw new TotalMissingException($"The provided text does not contain the XML tag for <{TotalTag}>");
             }
+
+            // Sanitize Cost centre
             if (expense.CostCentre == null)
             {
                 expense.CostCentre = UnknownCostCentre;

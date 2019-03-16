@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Serko.XmlExtactor.ExceptionHandling;
 using Serko.XmlExtractor.Business.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -63,6 +64,9 @@ namespace Serko.XmlExtactor
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Expenses API V1");
                 c.RoutePrefix = string.Empty; // Serve swagger at the root
             });
+
+            // Global exception handler
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseMvc();
         }
