@@ -7,11 +7,9 @@ namespace Serko.XmlExtractor.Business.Models
     [XmlRoot(ElementName = "expense")]
     public class Expense
     {
-        [DefaultValue(ExpenseService.UnknownCostCentre)]
         [XmlElement(ElementName = "cost_centre")]
         public string CostCentre { get; set; }
 
-        [DefaultValue(null)]
         [XmlElement(ElementName = "total")]
         public decimal? Total { get; set; }
 

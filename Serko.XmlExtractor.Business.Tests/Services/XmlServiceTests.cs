@@ -41,12 +41,12 @@ namespace Serko.XmlExtractor.Business.Tests.Services
         }
 
         [TestMethod]
-        public void TryDeserialize_Expense_ForMissingCostCentre_ReturnsUnknown()
+        public void TryDeserialize_Expense_ForMissingCostCentre_ReturnsNull()
         {
             var service = GetMockedService();
             var expense = service.Object.TryDeserialize<Expense>(Resources.XmlWithMissingCostCentre);
 
-            Assert.AreEqual("UNKNOWN", expense.CostCentre);
+            Assert.AreEqual(null, expense.CostCentre);
         }
 
 
