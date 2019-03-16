@@ -78,7 +78,7 @@ namespace Serko.XmlExtractor.Business.Services
             // Sanitize/Validate
             if (!expense.Total.HasValue)
             {
-                throw new InvalidDataException($"The provided text does `not contain the XML tag for <{TotalTag}> or its value is empty");
+                throw new InvalidDataException($"The provided text does not contain the XML tag for <{TotalTag}> or its value is empty");
             }
             if (expense.CostCentre == null)
             {

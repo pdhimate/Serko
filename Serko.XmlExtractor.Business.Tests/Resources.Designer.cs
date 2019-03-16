@@ -63,11 +63,56 @@ namespace Serko.XmlExtractor.Business.Tests {
         /// <summary>
         ///   Looks up a localized string similar to &lt;expense&lt;cost_centre&gt;DEV002&lt;/cost_centre&gt;
         ///&lt;total&gt;1024.01&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
-        ///&lt;/expense&gt;.
+        ///&lt;/expense&gt;
+        ///.
         /// </summary>
         internal static string InvalidXml {
             get {
                 return ResourceManager.GetString("InvalidXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi Yvaine,
+        ///Please create an expense claim for the below. Relevant details are marked up as
+        ///requested...
+        ///&lt;expense&gt;
+        ///&lt;total&gt;1024.01&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
+        ///&lt;/expense&gt;
+        ///From: Ivan Castle
+        ///Sent: Friday, 16 February 2018 10:32 AM
+        ///To: Antoine Lloyd &lt;Antoine.Lloyd@example.com&gt;
+        ///Subject: test
+        ///Hi Antoine,
+        ///Please create a reservation at the &lt;vendor&gt;Viaduct Steakhouse&lt;/vendor&gt; our
+        ///&lt;description&gt;development team’s project end celebration dinner&lt;/description&gt; on
+        ///&lt;date&gt;Tuesday 27 Apr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TextWithMissingCostCentre {
+            get {
+                return ResourceManager.GetString("TextWithMissingCostCentre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi Yvaine,
+        ///Please create an expense claim for the below. Relevant details are marked up as
+        ///requested...
+        ///&lt;expense&gt;&lt;cost_centre&gt;DEV002&lt;/cost_centre&gt;
+        ///&lt;payment_method&gt;personal card&lt;/payment_method&gt;
+        ///&lt;/expense&gt;
+        ///From: Ivan Castle
+        ///Sent: Friday, 16 February 2018 10:32 AM
+        ///To: Antoine Lloyd &lt;Antoine.Lloyd@example.com&gt;
+        ///Subject: test
+        ///Hi Antoine,
+        ///Please create a reservation at the &lt;vendor&gt;Viaduct Steakhouse&lt;/vendor&gt; our
+        ///&lt;description&gt;development team’s project end celebration dinner&lt;/description&gt; on
+        ///&lt;date&gt;Tue [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TextWithMissingTotal {
+            get {
+                return ResourceManager.GetString("TextWithMissingTotal", resourceCulture);
             }
         }
         
@@ -105,24 +150,13 @@ namespace Serko.XmlExtractor.Business.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;expense&gt;&lt;cost_centre&gt;&lt;/cost_centre&gt;
+        ///   Looks up a localized string similar to &lt;expense&lt;cost_centre&gt;DEV002&lt;/cost_centre&gt;
         ///&lt;total&gt;1024.01&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
         ///&lt;/expense&gt;.
         /// </summary>
-        internal static string XmlWithEmptyCostCentre {
+        internal static string XmlWithInvalidXml {
             get {
-                return ResourceManager.GetString("XmlWithEmptyCostCentre", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;expense&gt;&lt;cost_centre&gt;DEV002&lt;/cost_centre&gt;
-        ///&lt;total&gt;&lt;/total&gt;&lt;payment_method&gt;personal card&lt;/payment_method&gt;
-        ///&lt;/expense&gt;.
-        /// </summary>
-        internal static string XmlWithEmptyTotal {
-            get {
-                return ResourceManager.GetString("XmlWithEmptyTotal", resourceCulture);
+                return ResourceManager.GetString("XmlWithInvalidXml", resourceCulture);
             }
         }
         

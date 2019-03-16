@@ -119,24 +119,27 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="InvalidXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithInvalidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>SampleTexts\InvalidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TextWithMissingCostCentre" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SampleTexts\TextWithMissingCostCentre.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TextWithMissingTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SampleTexts\TextWithMissingTotal.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TextWithValidXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithValidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>SampleTexts\TextWithValidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ValidXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\ValidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>SampleTexts\ValidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="XmlWithEmptyCostCentre" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithEmptyCostCentre.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="XmlWithEmptyTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithEmptyTotal.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="XmlWithInvalidXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SampleTexts\XmlWithInvalidXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="XmlWithMissingCostCentre" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithMissingCostCentre.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>SampleTexts\XmlWithMissingCostCentre.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="XmlWithMissingTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\Users\bitar\Desktop\TextWithMissingTotal.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>SampleTexts\XmlWithMissingTotal.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

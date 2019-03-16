@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Serko.XmlExtractor.Business.Services;
+using System.IO;
 
 namespace Serko.XmlExtractor.Business.Tests.Services
 {
@@ -29,7 +30,7 @@ namespace Serko.XmlExtractor.Business.Tests.Services
             xmlService.Setup(m => m.ExtractXmlIsland(It.IsAny<string>(), ExpenseService.DateTag)).Returns("Tuesday 27 April 2017");
 
             // Setup expense service
-            var expenseService = GetMockedService(xmlService);
+            var expenseService = GetMockedService(xmlService.Object);
             expenseService.Setup(m => m.ExtractExpenseMarkup(It.IsAny<string>())).Returns(new Models.Expense
             {
                 CostCentre = "DEV002",
@@ -48,13 +49,48 @@ namespace Serko.XmlExtractor.Business.Tests.Services
 
         #region Local helpers
 
+        #region ExtractExpenseMarkup
+
+        [TestMethod]
+        public void ExtractExpenseMarkup_ForTextWithValidXml_ReturnsExpense()
+        {
+            var xmlService = new XmlService();
+            var expenseService = GetMockedService(xmlService);
+
+            var expense = expenseService.Object.ExtractExpenseMarkup(Resources.TextWithValidXml);
+
+            Assert.IsNotNull(expense);
+        }
+
+        [TestMethod]
+        public void ExtractExpenseMarkup_ForTextWithMissingCostcenter_ReturnsCostCentreAsUnknown()
+        {
+            var xmlService = new XmlService();
+            var expenseService = GetMockedService(xmlService);
+
+            var expense = expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingCostCentre);
+
+            Assert.AreEqual(ExpenseService.UnknownCostCentre, expense.CostCentre);
+        }
+
+        [TestMethod]
+        public void ExtractExpenseMarkup_ForTextWithMissingTotal_Throws()
+        {
+            var xmlService = new XmlService();
+            var expenseService = GetMockedService(xmlService);
+
+            Assert.ThrowsException<InvalidDataException>(() => expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingTotal));
+        }
+
+        #endregion
+
         #region CalculateGSTAmount
 
         [TestMethod]
         public void CalculateGSTAmount_For0Total_Returns0GstAmount()
         {
             var xmlService = new Mock<IXmlService>();
-            var expenseService = GetMockedService(xmlService);
+            var expenseService = GetMockedService(xmlService.Object);
 
             var totalWithGst = 0;
             var gstAmount = expenseService.Object.CalculateGSTAmount(totalWithGst);
@@ -66,7 +102,7 @@ namespace Serko.XmlExtractor.Business.Tests.Services
         public void CalculateGSTAmount_For1024Point01Total_Returns0GstAmount()
         {
             var xmlService = new Mock<IXmlService>();
-            var expenseService = GetMockedService(xmlService);
+            var expenseService = GetMockedService(xmlService.Object);
 
             var totalWithGst = 1024.01M;
             var gstAmount = expenseService.Object.CalculateGSTAmount(totalWithGst);
@@ -78,9 +114,9 @@ namespace Serko.XmlExtractor.Business.Tests.Services
 
         #endregion
 
-        private static Mock<ExpenseService> GetMockedService(Mock<IXmlService> xmlService)
+        private static Mock<ExpenseService> GetMockedService(IXmlService xmlService)
         {
-            return new Mock<ExpenseService>(new object[] { xmlService.Object }) { CallBase = true };
+            return new Mock<ExpenseService>(new object[] { xmlService }) { CallBase = true };
         }
     }
 }
