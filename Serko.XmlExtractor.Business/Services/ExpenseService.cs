@@ -1,4 +1,5 @@
-﻿using Serko.XmlExtractor.Business.DTOs;
+﻿using Microsoft.Extensions.Logging;
+using Serko.XmlExtractor.Business.DTOs;
 using Serko.XmlExtractor.Business.Exceptions;
 using Serko.XmlExtractor.Business.Models;
 using System;
@@ -16,6 +17,7 @@ namespace Serko.XmlExtractor.Business.Services
         #region Dependencies
 
         private readonly IXmlService _xmlService;
+        private readonly ILogger<ExpenseService> _logger;
 
         #endregion
 
@@ -33,22 +35,23 @@ namespace Serko.XmlExtractor.Business.Services
 
         #endregion
 
-        public ExpenseService(IXmlService xmlService)
+        public ExpenseService(IXmlService xmlService, ILogger<ExpenseService> logger)
         {
             _xmlService = xmlService;
+            _logger = logger;
         }
 
         #region IExpenseService implementation
 
         public ExpenseReport GetExpenseReport(ExpenseReportReq req)
         {
-            var text = req.TextWithXml;
-
             // Get expense and GST amount
+            var text = req.TextWithXml;
             var expense = ExtractExpenseMarkup(text);
             var gstAmount = CalculateGSTAmount(expense.Total.Value);
 
             // Prepare the report
+            _logger.LogInformation("Preparing expense report...");
             var report = new ExpenseReport
             {
                 Expense = expense,
@@ -66,6 +69,8 @@ namespace Serko.XmlExtractor.Business.Services
 
         public virtual Expense ExtractExpenseMarkup(string text)
         {
+            _logger.LogInformation("Extracting expense markup...");
+
             // Fetch Expense
             var expenseXml = _xmlService.ExtractXmlIsland(text, ExpenseTag);
             if (expenseXml == null)
@@ -77,6 +82,8 @@ namespace Serko.XmlExtractor.Business.Services
             {
                 throw new InvalidExpenseException($"The provided text does not contain a valid XML Markup for <{ExpenseTag}>.");
             }
+
+            _logger.LogInformation("Validating and Sanitizing expense markup...");
 
             // Validate total tag
             if (!expense.Total.HasValue)
@@ -95,6 +102,7 @@ namespace Serko.XmlExtractor.Business.Services
 
         public virtual decimal CalculateGSTAmount(decimal totalWithGst)
         {
+            _logger.LogInformation("Calculating GST from Total...");
             return (totalWithGst * 100M) / (100M + GSTPercent);
         }
 
