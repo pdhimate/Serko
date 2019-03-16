@@ -91,9 +91,10 @@ namespace Serko.XmlExtractor.Business.Services
                 throw new TotalMissingException($"The provided text does not contain the XML tag for <{TotalTag}>");
             }
 
-            // Sanitize Cost centre
+            // Sanitize Cost center
             if (expense.CostCentre == null)
             {
+                _logger.LogWarning("Cost center was not found, using default value.");
                 expense.CostCentre = UnknownCostCentre;
             }
 
