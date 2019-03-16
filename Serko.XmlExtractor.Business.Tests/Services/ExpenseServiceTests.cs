@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Serko.XmlExtractor.Business.DTOs;
@@ -118,7 +119,8 @@ namespace Serko.XmlExtractor.Business.Tests.Services
 
         private static Mock<ExpenseService> GetMockedService(IXmlService xmlService)
         {
-            return new Mock<ExpenseService>(new object[] { xmlService }) { CallBase = true };
+            var logger = new Mock<ILogger<ExpenseService>>();
+            return new Mock<ExpenseService>(new object[] { xmlService, logger.Object }) { CallBase = true };
         }
     }
 }
