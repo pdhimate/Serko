@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Serko.XmlExtactor.ExceptionHandling;
+using Serko.XmlExtactor.Filters;
 using Serko.XmlExtractor.Business.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -28,7 +29,7 @@ namespace Serko.XmlExtactor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(config => config.Filters.Add(new ValidateModelFilter()));
 
             // Register dependencies
             services.AddScoped<IXmlService, XmlService>();
@@ -44,6 +45,7 @@ namespace Serko.XmlExtactor
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +69,6 @@ namespace Serko.XmlExtactor
 
             // Global exception handler
             app.UseMiddleware<ErrorHandlingMiddleware>();
-
             app.UseMvc();
         }
     }

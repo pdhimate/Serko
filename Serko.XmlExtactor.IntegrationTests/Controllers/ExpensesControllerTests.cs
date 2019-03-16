@@ -12,7 +12,21 @@ namespace Serko.XmlExtactor.IntegrationTests.Controllers
 
         #region POST
 
-                [TestMethod]
+        [TestMethod]
+        public void Post_WithNullText_Returns_HttpbadRequest()
+        {
+            var req = new ExpenseReportReq
+            {
+                TextWithXml = null
+            };
+            var request = new RestRequest(_apiurl, Method.POST);
+            request.AddJsonBody(req);
+            var res = RestClient.Execute(request);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, res.StatusCode);
+        }
+
+        [TestMethod]
         public void Post_TextWithMissingTotal_Returns_HttpNotFound()
         {
             var req = new ExpenseReportReq
