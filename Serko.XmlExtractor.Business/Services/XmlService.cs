@@ -18,6 +18,14 @@ namespace Serko.XmlExtractor.Business.Services
             return match.Value;
         }
 
+        public string ExtractXmlIslandInnerValue(string text, string xmlTagName)
+        {
+            var islandXml = ExtractXmlIsland(text, xmlTagName);
+            var value = islandXml.Replace($"<{xmlTagName}>", string.Empty)
+                               .Replace($"</{xmlTagName}>", string.Empty);
+            return value;
+        }
+
         public T TryDeserialize<T>(string xml)
         {
             var serializer = new XmlSerializer(typeof(T));

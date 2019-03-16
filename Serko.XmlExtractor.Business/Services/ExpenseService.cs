@@ -51,9 +51,9 @@ namespace Serko.XmlExtractor.Business.Services
             var report = new ExpenseReport
             {
                 Expense = expense,
-                Vendor = _xmlService.ExtractXmlIsland(text, VendorTag),
-                Description = _xmlService.ExtractXmlIsland(text, DescriptionTag),
-                Date = _xmlService.ExtractXmlIsland(text, DateTag)
+                Vendor = _xmlService.ExtractXmlIslandInnerValue(text, VendorTag),
+                Description = _xmlService.ExtractXmlIslandInnerValue(text, DescriptionTag),
+                Date = _xmlService.ExtractXmlIslandInnerValue(text, DateTag)
             };
 
             return report;

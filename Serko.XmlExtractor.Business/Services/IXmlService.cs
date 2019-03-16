@@ -4,5 +4,7 @@
     {
         T TryDeserialize<T>(string xml);
         string ExtractXmlIsland(string text, string xmlTagName);
+        string ExtractXmlIslandInnerValue(string text, string xmlTagName);
+
     }
 }
