@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Serko.XmlExtractor.Business.Exceptions;
 using System;
@@ -15,10 +16,12 @@ namespace Serko.XmlExtactor.ExceptionHandling
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -33,8 +36,10 @@ namespace Serko.XmlExtactor.ExceptionHandling
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
+            _logger.LogError(exception.Message);
+
             // Set HTTP code according to the exception
             var httpCode = DetermineHttpCode(exception);
             context.Response.StatusCode = (int)httpCode;
