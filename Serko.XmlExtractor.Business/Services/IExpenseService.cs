@@ -4,6 +4,6 @@ namespace Serko.XmlExtractor.Business.Services
 {
     public interface IExpenseService
     {
-        ExpenseReport GetExpenseReport(string text);
+        ExpenseReport GetExpenseReport(ExpenseReportReq req);
     }
 }

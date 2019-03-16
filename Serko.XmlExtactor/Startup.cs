@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Serko.XmlExtractor.Business.Services;
 
 namespace Serko.XmlExtactor
 {
@@ -24,6 +25,10 @@ namespace Serko.XmlExtactor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // Register dependencies
+            services.AddScoped<IXmlService, XmlService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

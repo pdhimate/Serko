@@ -39,8 +39,10 @@ namespace Serko.XmlExtractor.Business.Services
 
         #region IExpenseService implementation
 
-        public ExpenseReport GetExpenseReport(string text)
+        public ExpenseReport GetExpenseReport(ExpenseReportReq req)
         {
+            var text = req.TextWithXml;
+
             // Get expense and GST amount
             var expense = ExtractExpenseMarkup(text);
             var gstAmount = CalculateGSTAmount(expense.Total.Value);

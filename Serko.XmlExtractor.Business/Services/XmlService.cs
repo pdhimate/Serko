@@ -28,7 +28,7 @@ namespace Serko.XmlExtractor.Business.Services
                 {
                     result = (T)serializer.Deserialize(reader);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // TODO: Log exception
                     return default(T);

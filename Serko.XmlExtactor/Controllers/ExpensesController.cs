@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Serko.XmlExtractor.Business.DTOs;
 using Serko.XmlExtractor.Business.Services;
 
 namespace Serko.XmlExtactor.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class ExpensesController : Controller
     {
@@ -19,9 +21,9 @@ namespace Serko.XmlExtactor.Controllers
 
         // POST api/expenses
         [HttpPost]
-        public IActionResult Post([FromBody]string textWithXml)
+        public IActionResult Create(ExpenseReportReq req)
         {
-            var report = _expenseService.GetExpenseReport(textWithXml);
+            var report = _expenseService.GetExpenseReport(req);
             return Ok(report);
         }
 

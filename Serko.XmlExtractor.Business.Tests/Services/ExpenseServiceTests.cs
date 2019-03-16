@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Serko.XmlExtractor.Business.DTOs;
 using Serko.XmlExtractor.Business.Services;
 using System.IO;
 
@@ -40,7 +41,7 @@ namespace Serko.XmlExtractor.Business.Tests.Services
             expenseService.Setup(m => m.CalculateGSTAmount(It.IsAny<decimal>())).Returns(15);
 
             // Get report
-            var report = expenseService.Object.GetExpenseReport(It.IsAny<string>());
+            var report = expenseService.Object.GetExpenseReport(new ExpenseReportReq());
 
             Assert.IsNotNull(report);
         }
