@@ -11,6 +11,6 @@ namespace Serko.XmlExtractor.Business.DTOs
 
         public string Vendor { get; set; }
         public string Description { get; set; }
-        public string Date { get; set; } // TODO: convert to DateTime?
+        public string Date { get; set; } // Convert to DateTime?
     }
 }

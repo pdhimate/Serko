@@ -1,4 +1,5 @@
-﻿using Serko.XmlExtractor.Business.Models;
+﻿using Microsoft.Extensions.Logging;
+using Serko.XmlExtractor.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,13 @@ namespace Serko.XmlExtractor.Business.Services
 {
     public class XmlService : IXmlService
     {
+        private readonly ILogger<XmlService> _logger;
+
+        public XmlService(ILogger<XmlService> logger)
+        {
+            _logger = logger;
+        }
+
         public string ExtractXmlIsland(string text, string xmlTagName)
         {
             var regexPattern = $@"<{xmlTagName}>[\s\S]*<\/{xmlTagName}>";
@@ -36,9 +44,9 @@ namespace Serko.XmlExtractor.Business.Services
                 {
                     result = (T)serializer.Deserialize(reader);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // TODO: Log exception
+                    _logger.LogError(ex, ex.Message);
                     return default(T);
                 }
             }

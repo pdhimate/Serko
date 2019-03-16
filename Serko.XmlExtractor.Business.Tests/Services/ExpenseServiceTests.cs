@@ -57,7 +57,8 @@ namespace Serko.XmlExtractor.Business.Tests.Services
         [TestMethod]
         public void ExtractExpenseMarkup_ForTextWithValidXml_ReturnsExpense()
         {
-            var xmlService = new XmlService();
+            var logger = new Mock<ILogger<XmlService>>();
+            var xmlService = new XmlService(logger.Object);
             var expenseService = GetMockedService(xmlService);
 
             var expense = expenseService.Object.ExtractExpenseMarkup(Resources.TextWithValidXml);
@@ -68,7 +69,8 @@ namespace Serko.XmlExtractor.Business.Tests.Services
         [TestMethod]
         public void ExtractExpenseMarkup_ForTextWithMissingCostcenter_ReturnsCostCentreAsUnknown()
         {
-            var xmlService = new XmlService();
+            var logger = new Mock<ILogger<XmlService>>();
+            var xmlService = new XmlService(logger.Object);
             var expenseService = GetMockedService(xmlService);
 
             var expense = expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingCostCentre);
@@ -79,7 +81,8 @@ namespace Serko.XmlExtractor.Business.Tests.Services
         [TestMethod]
         public void ExtractExpenseMarkup_ForTextWithMissingTotal_Throws()
         {
-            var xmlService = new XmlService();
+            var logger = new Mock<ILogger<XmlService>>();
+            var xmlService = new XmlService(logger.Object);
             var expenseService = GetMockedService(xmlService);
 
             Assert.ThrowsException<TotalMissingException>(() => expenseService.Object.ExtractExpenseMarkup(Resources.TextWithMissingTotal));
