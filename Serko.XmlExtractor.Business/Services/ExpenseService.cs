@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace Serko.XmlExtractor.Business.Services
 {
-    public class ExpenseService
+    public class ExpenseService : IExpenseService
     {
         #region Dependencies
 
@@ -20,15 +20,15 @@ namespace Serko.XmlExtractor.Business.Services
 
         #region Constants
 
-        const decimal GSTPercent = 15;
-        const string UnknownVendorName = "UNKNOWN";
+        public const decimal GSTPercent = 15;
+        public const string UnknownVendorName = "UNKNOWN";
 
         // XML Tags
+        public const string VendorTag = "vendor";
+        public const string DescriptionTag = "description";
+        public const string DateTag = "date";
         const string ExpenseTag = "expense";
         const string TotalTag = "total";
-        const string VendorTag = "vendor";
-        const string DescriptionTag = "description";
-        const string DateTag = "date";
 
         #endregion
 
@@ -36,6 +36,8 @@ namespace Serko.XmlExtractor.Business.Services
         {
             _xmlService = xmlService;
         }
+
+        #region IExpenseService implementation
 
         public ExpenseReport GetExpenseReport(string text)
         {
@@ -49,22 +51,17 @@ namespace Serko.XmlExtractor.Business.Services
                 Expense = expense,
                 Vendor = _xmlService.ExtractXmlIsland(text, VendorTag),
                 Description = _xmlService.ExtractXmlIsland(text, DescriptionTag),
+                Date = _xmlService.ExtractXmlIsland(text, DateTag)
             };
-
-            // Parse Date, if any, and update it in the report
-            var dateXml = _xmlService.ExtractXmlIsland(text, DateTag);
-            if (DateTime.TryParse(dateXml, out DateTime date))
-            {
-                report.Date = date;
-            }
 
             return report;
         }
 
+        #endregion
 
         #region Local helpers
 
-        private Expense ExtractExpenseMarkup(string text)
+        public virtual Expense ExtractExpenseMarkup(string text)
         {
             // Fetch Expense
             var expenseXml = _xmlService.ExtractXmlIsland(text, ExpenseTag);
@@ -91,7 +88,7 @@ namespace Serko.XmlExtractor.Business.Services
             return expense;
         }
 
-        private decimal CalculateGSTAmount(decimal totalWithGst)
+        public virtual decimal CalculateGSTAmount(decimal totalWithGst)
         {
             return (totalWithGst * 100M) / (100M + GSTPercent);
         }
