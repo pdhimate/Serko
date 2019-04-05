@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Serko.XmlExtractor.Business.Models;
@@ -54,7 +55,8 @@ namespace Serko.XmlExtractor.Business.Tests.Services
 
         private static Mock<XmlService> GetMockedService()
         {
-            return new Mock<XmlService>() { CallBase = true };
+            var logger = new Mock<ILogger<XmlService>>();
+            return new Mock<XmlService>(new object[] { logger.Object }) { CallBase = true };
         }
 
     }
